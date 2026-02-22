@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trenzoo | Premium Essentials</title>
+    <meta
+      name="description"
+      content="Trenzoo creates premium everyday products crafted for modern living."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="background-glow" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="brand" href="#home">trenzoo</a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#shop">Shop</a>
+        <a href="#about">About</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#checkout">Checkout</a>
+      </nav>
+      <button class="cart-button" id="openCartButton" aria-label="Open shopping cart">
+        Cart <span id="cartCount">0</span>
+      </button>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="hero-text reveal">
+          <p class="eyebrow">Crafted for Everyday Luxury</p>
+          <h1>Build your brand with a storefront that feels premium.</h1>
+          <p>
+            This starter site is built to showcase your own products with clean design,
+            clear pricing, and a smooth purchase experience.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#shop">Shop Collection</a>
+            <a class="btn btn-secondary" href="#about">Our Story</a>
+          </div>
+        </div>
+        <div class="hero-card reveal delay-1">
+          <p>Trusted by 4,000+ happy customers</p>
+          <h2>Fast shipping. Premium quality. Easy checkout.</h2>
+          <ul>
+            <li>2-day dispatch on all orders</li>
+            <li>Secure payment flow</li>
+            <li>Simple returns within 30 days</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="trust-strip reveal">
+        <article>
+          <strong>98%</strong>
+          <span>Repeat customer rate</span>
+        </article>
+        <article>
+          <strong>4.9/5</strong>
+          <span>Average product rating</span>
+        </article>
+        <article>
+          <strong>24/7</strong>
+          <span>Customer support response</span>
+        </article>
+      </section>
+
+      <section class="shop" id="shop">
+        <div class="section-head reveal">
+          <p class="eyebrow">Featured Collection</p>
+          <h2>Products that combine design and performance</h2>
+        </div>
+
+        <div class="filters reveal delay-1" id="filters" aria-label="Filter products"></div>
+        <div class="product-grid" id="productGrid"></div>
+      </section>
+
+      <section class="about" id="about">
+        <div class="section-head reveal">
+          <p class="eyebrow">Why Customers Choose Us</p>
+          <h2>Professional quality from brand to doorstep</h2>
+        </div>
+        <div class="feature-grid">
+          <article class="feature reveal">
+            <h3>Premium Materials</h3>
+            <p>Each item is sourced and finished with durability, comfort, and style in mind.</p>
+          </article>
+          <article class="feature reveal delay-1">
+            <h3>Clear Branding</h3>
+            <p>Consistent typography, imagery, and product stories increase customer trust.</p>
+          </article>
+          <article class="feature reveal delay-2">
+            <h3>Optimized Conversion</h3>
+            <p>Focused product cards and a clean cart flow help visitors become customers.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="reviews" id="reviews">
+        <div class="section-head reveal">
+          <p class="eyebrow">Customer Voices</p>
+          <h2>Social proof that builds confidence</h2>
+        </div>
+        <div class="review-grid">
+          <article class="review reveal">
+            <p>
+              "I swapped in my own products and launched in a day. The site looked like a real
+              brand from the start."
+            </p>
+            <strong>- Maya K.</strong>
+          </article>
+          <article class="review reveal delay-1">
+            <p>
+              "Clean layout, fast loading, and the cart experience is simple for my customers."
+            </p>
+            <strong>- Jordan T.</strong>
+          </article>
+          <article class="review reveal delay-2">
+            <p>
+              "The structure made it easy to scale from 6 products to over 40 without redesigning."
+            </p>
+            <strong>- Alex R.</strong>
+          </article>
+        </div>
+      </section>
+
+      <section class="checkout" id="checkout">
+        <div class="section-head reveal">
+          <p class="eyebrow">Checkout</p>
+          <h2>Ready to place your order?</h2>
+        </div>
+        <div class="checkout-layout">
+          <form class="checkout-form reveal" id="checkoutForm">
+            <label>
+              Full Name
+              <input type="text" name="name" placeholder="Your name" required />
+            </label>
+            <label>
+              Email Address
+              <input type="email" name="email" placeholder="you@example.com" required />
+            </label>
+            <label>
+              Shipping Address
+              <textarea name="address" rows="3" placeholder="Street, City, State, ZIP" required></textarea>
+            </label>
+            <label>
+              Order Notes
+              <textarea name="notes" rows="3" placeholder="Optional details"></textarea>
+            </label>
+            <button class="btn btn-primary" type="submit">Place Order</button>
+            <p class="form-message" id="formMessage"></p>
+          </form>
+
+          <aside class="summary reveal delay-1" aria-label="Order summary">
+            <h3>Order Summary</h3>
+            <ul id="checkoutSummary"></ul>
+            <div class="summary-totals">
+              <p>Subtotal <span id="summarySubtotal">$0.00</span></p>
+              <p>Shipping <span id="summaryShipping">$0.00</span></p>
+              <p class="total">Total <span id="summaryTotal">$0.00</span></p>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart">
+      <header>
+        <h2>Your Cart</h2>
+        <button id="closeCartButton" aria-label="Close cart">Close</button>
+      </header>
+      <ul id="cartItems"></ul>
+      <div class="cart-totals">
+        <p>Subtotal <span id="cartSubtotal">$0.00</span></p>
+        <p>Shipping <span id="cartShipping">$0.00</span></p>
+        <p class="total">Total <span id="cartTotal">$0.00</span></p>
+      </div>
+      <a class="btn btn-primary" href="#checkout" id="goCheckout">Proceed to Checkout</a>
+    </aside>
+
+    <footer class="site-footer">
+      <p>Northline Studio © 2026. Built for your brand growth.</p>
+    </footer>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
