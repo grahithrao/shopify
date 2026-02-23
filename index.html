@@ -154,7 +154,12 @@
               Order Notes
               <textarea name="notes" rows="3" placeholder="Optional details"></textarea>
             </label>
-            <button class="btn btn-primary" type="submit">Place Order</button>
+            <button class="btn btn-primary" type="submit" id="checkoutButton">
+              Continue to Secure Payment
+            </button>
+            <p class="payment-note">
+              Secure checkout by Stripe. Google Pay appears automatically on supported devices and browsers.
+            </p>
             <p class="form-message" id="formMessage"></p>
           </form>
 

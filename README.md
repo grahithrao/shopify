@@ -1,38 +1,61 @@
-# Professional E-commerce Starter
+# Trenzoo E-commerce Store (Google Pay Enabled)
 
-This is a responsive, professional e-commerce starter website built with plain HTML, CSS, and JavaScript.
+This store now uses a real Stripe Checkout payment flow. Google Pay is available automatically in Stripe Checkout on supported devices/browsers.
 
-## Files
-- `index.html`: Page layout and sections.
-- `styles.css`: Design system, responsive styling, animations.
-- `products.js`: Your product catalog (edit this first).
-- `app.js`: Product rendering, filters, cart, and checkout behavior.
+## Project structure
+- `/Volumes/grahith SSD/shopify/index.html`: storefront UI
+- `/Volumes/grahith SSD/shopify/styles.css`: styling and responsive design
+- `/Volumes/grahith SSD/shopify/products.js`: product catalog used by frontend + backend pricing
+- `/Volumes/grahith SSD/shopify/app.js`: cart logic + checkout session request
+- `/Volumes/grahith SSD/shopify/server.js`: secure Stripe backend
+- `/Volumes/grahith SSD/shopify/success.html`: post-payment success page
+- `/Volumes/grahith SSD/shopify/cancel.html`: payment-canceled page
 
-## Add your own products
-Open `products.js` and replace the sample objects in the `products` array.
-
-Each product supports:
-- `id`: unique string (example: `"p1"`)
-- `name`: product title
-- `price`: number in USD (example: `89`)
-- `category`: grouping label used in filters
-- `description`: short sales copy
-- `image`: image URL
-
-## Run locally
-Because this uses ES modules (`type="module"`), serve it with a local HTTP server:
-
+## 1) Install dependencies
 ```bash
 cd "/Volumes/grahith SSD/shopify"
-python3 -m http.server 8080
+npm install
 ```
 
-Then open:
-- `http://localhost:8080`
+## 2) Configure Stripe keys
+```bash
+cp .env.example .env
+```
 
-## Make it more professional for launch
-- Replace placeholder images with your own product photos.
-- Update brand name, story, and testimonials in `index.html`.
-- Connect checkout to Stripe/Shopify or your backend API.
-- Add your domain, analytics, and legal pages (Privacy Policy, Terms, Returns).
-# shopify
+Edit `.env`:
+- `STRIPE_SECRET_KEY`: your Stripe secret key (test or live)
+- `APP_URL`: public base URL for success/cancel redirects
+- `PORT`: local server port (default `4242`)
+- `CURRENCY`: currency for checkout (default `inr`)
+- `FREE_SHIPPING_THRESHOLD`: free shipping threshold in major units
+- `SHIPPING_FLAT_RATE`: shipping cost in major units
+
+## 3) Run the app
+```bash
+npm run dev
+```
+
+Open:
+- [http://localhost:4242](http://localhost:4242)
+
+## 4) Enable Google Pay in Stripe
+In your Stripe Dashboard:
+1. Go to **Settings -> Payment methods**.
+2. Ensure **Cards** and **Google Pay** are enabled.
+3. For production, use your live keys and a real HTTPS domain.
+
+Google Pay visibility depends on browser/device support (for example Chrome with a signed-in Google account and supported card).
+
+## 5) Add your own products
+Edit `/Volumes/grahith SSD/shopify/products.js` and replace sample products.
+
+Each product needs:
+- `id`: unique string
+- `name`: product title
+- `price`: number in major currency unit
+- `category`: filter group
+- `description`: short copy
+- `image`: HTTPS image URL
+
+## Important security note
+Never expose your Stripe secret key in frontend files. Keep it only in `.env` and use backend endpoints (already implemented in `server.js`).

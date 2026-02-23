@@ -13,22 +13,54 @@ const summarySubtotal = document.getElementById("summarySubtotal");
 const summaryShipping = document.getElementById("summaryShipping");
 const summaryTotal = document.getElementById("summaryTotal");
 const checkoutForm = document.getElementById("checkoutForm");
+const checkoutButton = document.getElementById("checkoutButton");
 const formMessage = document.getElementById("formMessage");
 const openCartButton = document.getElementById("openCartButton");
 const closeCartButton = document.getElementById("closeCartButton");
 const goCheckout = document.getElementById("goCheckout");
 
 const cart = new Map();
-const shippingFlatRate = 8;
-const freeShippingThreshold = 150;
+let shippingFlatRate = 8;
+let freeShippingThreshold = 150;
+let currencyCode = "INR";
+let localeCode = "en-IN";
 
 let activeCategory = "All";
 
 function formatCurrency(value) {
-  return new Intl.NumberFormat("en-IN", {
+  return new Intl.NumberFormat(localeCode, {
     style: "currency",
-    currency: "INR",
+    currency: currencyCode,
   }).format(value);
+}
+
+async function loadStoreConfig() {
+  try {
+    const response = await fetch("/api/store-config");
+    if (!response.ok) {
+      return;
+    }
+
+    const config = await response.json();
+
+    if (typeof config.shippingFlatRate === "number") {
+      shippingFlatRate = config.shippingFlatRate;
+    }
+
+    if (typeof config.freeShippingThreshold === "number") {
+      freeShippingThreshold = config.freeShippingThreshold;
+    }
+
+    if (config.currency) {
+      currencyCode = String(config.currency).toUpperCase();
+    }
+
+    if (config.locale) {
+      localeCode = String(config.locale);
+    }
+  } catch (_error) {
+    // Keep defaults when backend config is unavailable.
+  }
 }
 
 function getProductById(id) {
@@ -126,6 +158,13 @@ function updateQuantity(productId, delta) {
 function removeFromCart(productId) {
   cart.delete(productId);
   renderCart();
+}
+
+function getCartPayload() {
+  return [...cart.entries()].map(([id, quantity]) => ({
+    id,
+    quantity,
+  }));
 }
 
 function computeTotals() {
@@ -234,22 +273,57 @@ goCheckout.addEventListener("click", () => {
   cartDrawer.classList.remove("open");
 });
 
-checkoutForm.addEventListener("submit", (event) => {
+checkoutForm.addEventListener("submit", async (event) => {
   event.preventDefault();
+  formMessage.textContent = "";
 
   if (cart.size === 0) {
     formMessage.textContent = "Add at least one product before placing your order.";
     return;
   }
 
-  const customerName = checkoutForm.elements.name.value.trim();
-  formMessage.textContent = `Thank you, ${customerName}. Your order request has been received.`;
+  const customer = {
+    name: checkoutForm.elements.name.value.trim(),
+    email: checkoutForm.elements.email.value.trim(),
+    address: checkoutForm.elements.address.value.trim(),
+    notes: checkoutForm.elements.notes.value.trim(),
+  };
 
-  cart.clear();
-  renderCart();
-  checkoutForm.reset();
+  checkoutButton.disabled = true;
+  checkoutButton.textContent = "Redirecting...";
+  formMessage.textContent = "Preparing secure payment...";
+
+  try {
+    const response = await fetch("/api/create-checkout-session", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        items: getCartPayload(),
+        customer,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok || !data.url) {
+      throw new Error(data.error || "Unable to start checkout. Try again.");
+    }
+
+    window.location.href = data.url;
+  } catch (error) {
+    formMessage.textContent = error.message;
+    checkoutButton.disabled = false;
+    checkoutButton.textContent = "Continue to Secure Payment";
+  }
 });
 
-renderFilters();
-renderProducts();
-renderCart();
+async function initStorefront() {
+  await loadStoreConfig();
+  renderFilters();
+  renderProducts();
+  renderCart();
+}
+
+initStorefront();

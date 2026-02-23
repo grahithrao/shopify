@@ -409,6 +409,17 @@ section {
   font-weight: 700;
 }
 
+.payment-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.checkout-form button[disabled] {
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+
 .summary h3 {
   margin-top: 0;
   margin-bottom: 0.85rem;

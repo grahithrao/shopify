@@ -10,7 +10,7 @@ export const products = [
   },
   {
     id: "p2",
-    name: "Contour Water Bottle",
+    name: " Water Bottle",
     price: 34,
     category: "Lifestyle",
     description: "Insulated steel bottle that keeps drinks cold for up to 24 hours.",
