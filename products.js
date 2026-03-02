@@ -2,7 +2,7 @@ export const products = [
   {
     id: "p1",
     name: "Canvas Weekender",
-    price: 89,
+    price: 100,
     category: "Bags",
     description: "Durable travel bag with reinforced stitching and premium hardware.",
     image:
