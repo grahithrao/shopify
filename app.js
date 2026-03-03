@@ -1,5 +1,4 @@
 import { products } from "./products.js";
-
 const productGrid = document.getElementById("productGrid");
 const filtersContainer = document.getElementById("filters");
 const cartDrawer = document.getElementById("cartDrawer");
