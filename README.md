@@ -1,4 +1,4 @@
-Trenzoo E-commerce Store (Google Pay Enabled)
+# Trenzoo E-commerce Store (Google Pay Enabled)
 
 This store now uses a real Stripe Checkout payment flow. Google Pay is available automatically in Stripe Checkout on supported devices/browsers.
 
