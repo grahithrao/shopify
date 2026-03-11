@@ -16,7 +16,6 @@ This store now uses a real Stripe Checkout payment flow. Google Pay is available
 cd "/Volumes/grahith SSD/shopify"
 npm install
 ```
-
 ## 2) Configure Stripe keys
 ```bash
 cp .env.example .env
