@@ -35,7 +35,7 @@ npm run dev
 ```
 
 Open:
-- [http://localhost:4242](http://localhost:4242)
+- [http://localhost:4242](http://localhost:4242) 
 
 ## 4) Enable Google Pay in Stripe
 In your Stripe Dashboard:
